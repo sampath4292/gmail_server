@@ -47,13 +47,3 @@ exports.deleteMail = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
-// Store sent email in database
-const Email = require("../models/Email");
-
-await Email.create({
-  from,
-  to,
-  subject,
-  message,
-  folder: "sent",
-});

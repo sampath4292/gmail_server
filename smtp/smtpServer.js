@@ -7,7 +7,7 @@ const Email = require("../models/Email");
 function startSMTPServer() {
   const smtpServer = new SMTPServer({
     authOptional: true,
-    disabledCommands: ["STARTTLS"],
+    // disabledCommands: ["STARTTLS"],
 
     async onData(stream, session, callback) {
       let emailData = "";
@@ -20,12 +20,17 @@ function startSMTPServer() {
         try {
           const parsedEmail = await simpleParser(emailData);
 
+          const from = parsedEmail.from?.text || "";
+          const to = parsedEmail.to?.text || "";
+          const subject = parsedEmail.subject || "";
+          const message = parsedEmail.text || "";
+
           await Email.create({
             from,
             to,
             subject,
             message,
-            folder: "sent",
+            folder: "inbox",
           });
 
           console.log("📨 Email stored in database");
