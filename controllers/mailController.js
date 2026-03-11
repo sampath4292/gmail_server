@@ -5,7 +5,7 @@ exports.getInbox = async (req, res) => {
   try {
     const email = req.params.email;
 
-    const mails = await Email.find({ to: email });
+    const mails = await Email.find({ to: email }).sort({ date: -1 });
 
     res.json({
       success: true,

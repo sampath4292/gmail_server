@@ -1,3 +1,7 @@
+const express = require("express");
+const router = express.Router();
+const Email = require("../models/Email");
+
 router.get("/", async (req, res) => {
   const query = req.query.q;
 
@@ -10,3 +14,5 @@ router.get("/", async (req, res) => {
 
   res.json(results);
 });
+
+module.exports = router;
